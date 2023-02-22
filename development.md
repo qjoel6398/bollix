@@ -111,7 +111,7 @@ test with:
 `nvidia-smi`
 
 
-#### 6. set up X2GO
+#### 6. set up X2GO server
 Install x2go on server:
 
 `sudo yum install epel-release`
@@ -155,6 +155,16 @@ Next steps:
 3) SSH X11 forwarding
 4) Microsoft Server RDP
 5) Try a different Linux distribution on GCE?
+
+#### 6. set up X2GO client:
+
+Download x2go client: https://wiki.x2go.org/doku.php/download:start
+
+Log in using ssh public/private key pair:
+  1) generate public private key pair. 
+  2) add public key to gce metadata
+  3) configure x2go client connection using hostname and private key path. 
+  4) * remember that keys have usernames so make sure you are using the correct username.
 
 
 
