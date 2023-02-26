@@ -51,8 +51,8 @@ gcloud compute instances create bollix-1 \
     --can-ip-forward \
     --maintenance-policy "TERMINATE" \
     --tags "https-server" \
-    --image-project centos-cloud \
-    --image-family centos-7 \
+    --image-project ubuntu-os-cloud \
+    --image-family ubuntu-1804-lts \
     --boot-disk-size 50GB \
     --zone us-central1-a
 ```
@@ -66,28 +66,21 @@ gcloud compute instances create bollix-1 \
     --can-ip-forward \
     --maintenance-policy "TERMINATE" \
     --tags "https-server" \
-    --image-project centos-cloud \
-    --image-family centos-7 \
+    --image-project ubuntu-os-cloud \
+    --image-family ubuntu-1804-lts \
     --boot-disk-size 100 \
     --zone us-central1-a
 ```
 #### 3. sign in to VMS and change user password
 
-`gcloud compute ssh bollix-1`
+`gcloud compute ssh bollix-1 --project=superb-watch-220203 --zone=us-central1-a`
 
-then
+`` sudo passwd `whoami` ``
 
-`sudo passwd whoami`
+#### 4. install desktop env on remote (ubuntu)
 
-#### 4. install graphics components on remote
+`sudo apt-get install xubuntu-desktop`
 
-```
-sudo yum -y update
-sudo yum -y install kernel-devel
-sudo yum -y groupinstall "KDE desktop" "X Window System" "Fonts"
-sudo yum -y groupinstall "Development Tools"
-sudo yum -y groupinstall "Server with GUI"
-```
 `sudo reboot`
 
 #### 5. install NVIDIA drivers
@@ -111,50 +104,51 @@ test with:
 `nvidia-smi`
 
 
-#### 6. set up X2GO server
-Install x2go on server:
+#### 6. set up X2GO server (ubuntu)
+##### Install x2go on server (https://wiki.archlinux.org/title/X2Go#Server_side): 
 
-`sudo yum install epel-release`
+`sudo apt-get update`
 
-`sudo yum install x2goserver`
+`sudo apt-get install x2goserver x2goserver-xsession`
 
-set  firewall rules for X2GO:
+`sudo systemctl enable x2goserver`  
 
-`sudo firewall-cmd --permanent --add-port=22/tcp` 
+`sudo systemctl start x2goserver`  
 
-and
+`sudo systemctl status x2goserver`  
 
-`sudo firewall-cmd --reload`
+##### configure x11 forwarding:
 
+Change following settings in `/etc/ssh/sshd_config`
 
-Configure X2GO to use Gnome environment: 
-
-add 
 ```
-[Desktop]
-DesktopName=GNOME
-Session=gnome
+X11Forwarding yes
+AllowTcpForwarding yes
+X11UseLocalhost yes 
+X11DisplayOffset 10
 ```
-to 
+restart ssh service
+`sudo systemctl restart sshd`
 
-`/etc/x2go/kde.profile`
+enable ssh service
+`sudo systemctl enable ssh`
 
-restart X2GO server
+##### set  firewall rules for X2GO:
+`sudo ufw allow 22/tcp`
 
-`sudo systemctl restart x2goserver.service`
-
-Install X2GO on client: https://wiki.x2go.org/doku.php/doc:installation:x2goclient
+##### start x2go db:
+`sudo x2godbadmin --createdb`
 
 
 RESULT:
 
-No dice. x2goserver is not installing on my CENTOS7 machine. Well, it says it's installing, but the actual x2goserver binary and session file is no where to be found.
+Seems like x2goserver did finally install correctly on a ubuntu machine.
 
 Next steps:
 1) NVIDIA RTX to remote in (search in GCE marketplace) - 300+/Mo.
 3) SSH X11 forwarding
 4) Microsoft Server RDP
-5) Try a different Linux distribution on GCE?
+5) *Try a different Linux distribution on GCE?
 
 #### 6. set up X2GO client:
 
