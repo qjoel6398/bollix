@@ -26,3 +26,11 @@ gcloud compute instances create bollix-1 \
 2. add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
 configure x2go client connection using hostname and private key path.
  * remember that keys have usernames so make sure you are using the correct username.
+
+  
+### Installing and setting up Unity:
+
+
+
+### TO DO:
+  - get gce startup script to work.
