@@ -43,16 +43,16 @@ modifying https://cloud.google.com/architecture/creating-a-virtual-gpu-accelerat
 #### 1. Start VM, install drivers, and set up x2goserver. Replace <personal-access-token> with personal access token from github.
   
 ```
-gcloud compute instances create bollix-1 `
-    --machine-type n1-highmem-4 `
-    --accelerator type=nvidia-tesla-p4-vws,count=1 `
-    --can-ip-forward `
-    --maintenance-policy "TERMINATE" `
-    --tags "https-server" `
-    --image-project ubuntu-os-cloud `
-    --image-family ubuntu-1804-lts `
-    --boot-disk-size 50GB `
-    --metadata startup-script-url="https://<personal-access-token>@raw.githubusercontent.com/qjoel6398/bollix/master/gce_setup.sh" `
+gcloud compute instances create bollix-1 \
+    --machine-type n1-highmem-4 \
+    --accelerator type=nvidia-tesla-p4-vws,count=1 \
+    --can-ip-forward \
+    --maintenance-policy "TERMINATE" \
+    --tags "https-server" \
+    --image-project ubuntu-os-cloud \
+    --image-family ubuntu-1804-lts \
+    --boot-disk-size 50GB \
+    --metadata startup-script-url="https://<personal-access-token>@raw.githubusercontent.com/qjoel6398/bollix/master/gce_setup.sh" \
     --zone us-central1-a
 ```
 #### 2. set up X2GO client:
