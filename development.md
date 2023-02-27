@@ -34,3 +34,4 @@ configure x2go client connection using hostname and private key path.
 
 ### TO DO:
   - get gce startup script to work.
+  - install unity
