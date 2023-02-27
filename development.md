@@ -139,26 +139,18 @@ enable ssh service
 ##### start x2go db:
 `sudo x2godbadmin --createdb`
 
-
-RESULT:
-
-Seems like x2goserver did finally install correctly on a ubuntu machine.
-
-Next steps:
-1) NVIDIA RTX to remote in (search in GCE marketplace) - 300+/Mo.
-3) SSH X11 forwarding
-4) Microsoft Server RDP
-5) *Try a different Linux distribution on GCE?
-
 #### 6. set up X2GO client:
 
 Download x2go client: https://wiki.x2go.org/doku.php/download:start
 
-Log in using ssh public/private key pair:
-  1) generate public private key pair. 
-  2) add public key to gce metadata
-  3) configure x2go client connection using hostname and private key path. 
-  4) * remember that keys have usernames so make sure you are using the correct username.
+##### Log in using ssh public/private key pair:
+generate public private key pair with something like `ssh-keygen -t rsa -C "qjoel6398"`
+
+add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
+configure x2go client connection using hostname and private key path.
+ * remember that keys have usernames so make sure you are using the correct username.
+
+
 
 
 
