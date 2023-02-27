@@ -56,12 +56,11 @@ gcloud compute instances create bollix-1 \
     --zone us-central1-a
 ```
 #### 2. set up X2GO client:
-
-Download x2go client: https://wiki.x2go.org/doku.php/download:start
+##### Download x2go client: https://wiki.x2go.org/doku.php/download:start
 
 ##### Log in using ssh public/private key pair:
-generate public private key pair with something like `ssh-keygen -t rsa -C "qjoel6398"`
+1. generate public private key pair with something like `ssh-keygen -t rsa -C "qjoel6398"`
 
-add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
+2. add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
 configure x2go client connection using hostname and private key path.
  * remember that keys have usernames so make sure you are using the correct username.
