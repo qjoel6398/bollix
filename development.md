@@ -17,6 +17,7 @@ gcloud compute instances create bollix-1 \
     --metadata startup-script-url="https://<personal-access-token>@raw.githubusercontent.com/qjoel6398/bollix/master/gce_setup.sh" \
     --zone us-central1-a
 ```
+<<<<<<< HEAD
 #### 2. set up X2GO client:
 ##### Download x2go client: https://wiki.x2go.org/doku.php/download:start
 
@@ -29,7 +30,111 @@ configure x2go client connection using hostname and private key path.
 
   
 ### Installing and setting up Unity:
+=======
 
+* more powerful option:
+
+```
+gcloud compute instances create bollix-1 \
+    --machine-type custom-24-32768 \
+    --accelerator type=nvidia-tesla-p4-vws,count=1 \
+    --can-ip-forward \
+    --maintenance-policy "TERMINATE" \
+    --tags "https-server" \
+    --image-project ubuntu-os-cloud \
+    --image-family ubuntu-1804-lts \
+    --boot-disk-size 100 \
+    --zone us-central1-a
+```
+#### 3. sign in to VMS and change user password
+
+`gcloud compute ssh bollix-1 --project=superb-watch-220203 --zone=us-central1-a`
+
+`` sudo passwd `whoami` ``
+
+#### 4. install desktop env on remote (ubuntu)
+
+`sudo apt-get install xubuntu-desktop`
+
+`sudo reboot`
+
+#### 5. install NVIDIA drivers
+
+list drivers:
+`gsutil ls gs://nvidia-drivers-us-public/GRID`
+
+Install Driver:
+* change this depending on specs used. for now:
+
+```
+curl -O \
+https://storage.googleapis.com/nvidia-drivers-us-public/GRID/GRID11.1/NVIDIA-Linux-x86_64-450.80.02-grid.run
+sudo bash NVIDIA-Linux-x86_64-450.80.02-grid.run
+```
+If you're prompted to install 32-bit binaries, choose Yes.
+If you're prompted to modify the x.org file, choose No.
+
+test with:
+
+`nvidia-smi`
+
+
+#### 6. set up X2GO server (ubuntu)
+##### Install x2go on server (https://wiki.archlinux.org/title/X2Go#Server_side): 
+
+`sudo apt-get update`
+
+`sudo apt-get install x2goserver x2goserver-xsession`
+
+`sudo systemctl enable x2goserver`  
+
+`sudo systemctl start x2goserver`  
+
+`sudo systemctl status x2goserver`  
+
+##### configure x11 forwarding:
+
+Change following settings in `/etc/ssh/sshd_config`
+
+```
+X11Forwarding yes
+AllowTcpForwarding yes
+X11UseLocalhost yes 
+X11DisplayOffset 10
+```
+restart ssh service
+`sudo systemctl restart sshd`
+
+enable ssh service
+`sudo systemctl enable ssh`
+
+##### set  firewall rules for X2GO:
+`sudo ufw allow 22/tcp`
+
+##### start x2go db:
+`sudo x2godbadmin --createdb`
+
+
+RESULT:
+
+Seems like x2goserver did finally install correctly on a ubuntu machine.
+
+Next steps:
+1) NVIDIA RTX to remote in (search in GCE marketplace) - 300+/Mo.
+3) SSH X11 forwarding
+4) Microsoft Server RDP
+5) *Try a different Linux distribution on GCE?
+
+#### 6. set up X2GO client:
+
+Download x2go client: https://wiki.x2go.org/doku.php/download:start
+>>>>>>> parent of 5f790d9... Update development.md
+
+Log in using ssh public/private key pair:
+  1) generate public private key pair. 
+  2) add public key to gce metadata
+  3) configure x2go client connection using hostname and private key path. 
+  4) * remember that keys have usernames so make sure you are using the correct username.
 
 
 ### TO DO:
