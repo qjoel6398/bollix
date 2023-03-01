@@ -16,20 +16,6 @@ gcloud compute instances create bollix-1 \
     --boot-disk-size 50GB \
     --zone us-central1-a
 ```
-<<<<<<< HEAD
-#### 2. set up X2GO client:
-##### Download x2go client: https://wiki.x2go.org/doku.php/download:start
-
-##### Log in using ssh public/private key pair:
-1. generate public private key pair with something like `ssh-keygen -t rsa -C "qjoel6398"`
-
-2. add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
-configure x2go client connection using hostname and private key path.
- * remember that keys have usernames so make sure you are using the correct username.
-
-  
-### Installing and setting up Unity:
-=======
 
 * more powerful option:
 
@@ -108,18 +94,15 @@ sudo systemctl enable ssh
 ##### start x2go db:
 `sudo x2godbadmin --createdb`
 
-#### 6. set up X2GO client:
+#### 2. set up X2GO client:
+##### Download x2go client: https://wiki.x2go.org/doku.php/download:start
 
-Download x2go client: https://wiki.x2go.org/doku.php/download:start
->>>>>>> parent of 5f790d9... Update development.md
+##### Log in using ssh public/private key pair:
+1. generate public private key pair with something like `ssh-keygen -t rsa -C "qjoel6398"`
 
-Log in using ssh public/private key pair:
-  1) generate public private key pair. 
-  2) add public key to gce metadata
-  3) configure x2go client connection using hostname and private key path. 
-  4) * remember that keys have usernames so make sure you are using the correct username.
+2. add public key to gce metadata: https://cloud.google.com/compute/docs/connect/add-ssh-keys#metadata
+configure x2go client connection using hostname and private key path.
+ * remember that keys have usernames so make sure you are using the correct username.
 
-
-### TO DO:
-  - get gce startup script to work.
-  - install unity
+  
+### Installing and setting up Unity:
