@@ -6,16 +6,6 @@ sudo apt-get update
 # Install xubuntu desktop
 sudo apt-get install xubuntu-desktop -y
 
-# Wait for the VM to reboot
-sleep 30
-
-# Install the NVIDIA drivers
-curl -O https://storage.googleapis.com/nvidia-drivers-us-public/GRID/GRID11.1/NVIDIA-Linux-x86_64-450.80.02-grid.run
-sudo bash NVIDIA-Linux-x86_64-450.80.02-grid.run --silent
-
-# Test the NVIDIA driver installation
-nvidia-smi
-
 # Install X2Go server
 sudo apt-get install x2goserver x2goserver-xsession -y
 
