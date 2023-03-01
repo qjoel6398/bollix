@@ -6,9 +6,6 @@ sudo apt-get update
 # Install xubuntu desktop
 sudo apt-get install xubuntu-desktop -y
 
-# Reboot the VM
-sudo reboot
-
 # Wait for the VM to reboot
 sleep 30
 
@@ -34,3 +31,6 @@ sudo ufw allow 22/tcp
 
 # Create the X2Go database
 sudo x2godbadmin --createdb
+
+# Reboot the VM
+sudo reboot
