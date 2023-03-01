@@ -14,7 +14,6 @@ gcloud compute instances create bollix-1 \
     --image-project ubuntu-os-cloud \
     --image-family ubuntu-1804-lts \
     --boot-disk-size 50GB \
-    --metadata startup-script-url="https://<personal-access-token>@raw.githubusercontent.com/qjoel6398/bollix/master/gce_setup.sh" \
     --zone us-central1-a
 ```
 <<<<<<< HEAD
@@ -94,36 +93,20 @@ test with:
 
 ##### configure x11 forwarding:
 
-Change following settings in `/etc/ssh/sshd_config`
-
 ```
-X11Forwarding yes
-AllowTcpForwarding yes
-X11UseLocalhost yes 
-X11DisplayOffset 10
+sudo sed -i 's/#X11Forwarding no/X11Forwarding yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/X11UseLocalhost yes/#X11UseLocalhost yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/#X11DisplayOffset 10/X11DisplayOffset 10/g' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+sudo systemctl enable ssh
 ```
-restart ssh service
-`sudo systemctl restart sshd`
-
-enable ssh service
-`sudo systemctl enable ssh`
 
 ##### set  firewall rules for X2GO:
 `sudo ufw allow 22/tcp`
 
 ##### start x2go db:
 `sudo x2godbadmin --createdb`
-
-
-RESULT:
-
-Seems like x2goserver did finally install correctly on a ubuntu machine.
-
-Next steps:
-1) NVIDIA RTX to remote in (search in GCE marketplace) - 300+/Mo.
-3) SSH X11 forwarding
-4) Microsoft Server RDP
-5) *Try a different Linux distribution on GCE?
 
 #### 6. set up X2GO client:
 
