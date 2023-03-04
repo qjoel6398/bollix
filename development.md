@@ -121,11 +121,21 @@ configure x2go client connection using hostname and private key path.
     Unity is crashing when trying to start my project template.
       - Problem with Graphics card drivers/dependencies? 
          - note terminal output of `unityhub` on VM. ChatGPT says it's an issue with OpenGL library /GLX  which is likely a driver mismatch.
+          - note Unity Editor logs:` home/qjoel6398/.config/unity3d/Editor.log`
          - research graphics card and driver requirements for Unity on Ubuntu. 
       - problem with desktop environment compatability?
           - How would I find compatability requirements here?
       - general approach for handling crash error on UnityHub?
       * - you might need to start from scratch with the VM setup, leave NVIDIA drivers until last.
+      * - last tried:
+  
+          ```
+        apt install nvidia-cuda-toolkit
+        sudo add-apt-repository ppa:graphics-drivers/ppa
+        sudo apt-get update
+        sudo apt-get install nvidia-driver-470
+        sudo reboot
+        ```
         
   
   
