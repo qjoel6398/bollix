@@ -47,17 +47,22 @@ gcloud compute instances create bollix-1 \
 
 #### 5. install NVIDIA drivers
 
-list drivers:
+List drivers:
 `gsutil ls gs://nvidia-drivers-us-public/GRID`
 
-Install Driver:
+Install Driver Dependencies:
 * change this depending on specs used. for now:
 
-```
-curl -O \
-https://storage.googleapis.com/nvidia-drivers-us-public/GRID/GRID11.1/NVIDIA-Linux-x86_64-450.80.02-grid.run
-sudo bash NVIDIA-Linux-x86_64-450.80.02-grid.run
-```
+`sudo apt-get install gcc -y`
+`sudo apt-get install make -y`
+`sudo apt-get install pkg-config libglvnd-dev -y`
+
+Install Driver:
+`curl -O \
+https://storage.googleapis.com/nvidia-drivers-us-public/GRID/GRID11.1/NVIDIA-Linux-x86_64-450.80.02-grid.run`
+  
+`sudo bash NVIDIA-Linux-x86_64-450.80.02-grid.run --compat32-libdir=/usr/lib32`
+  
 If you're prompted to install 32-bit binaries, choose Yes.
 If you're prompted to modify the x.org file, choose No.
 
@@ -68,8 +73,6 @@ test with:
 
 #### 6. set up X2GO server (ubuntu)
 ##### Install x2go on server (https://wiki.archlinux.org/title/X2Go#Server_side): 
-
-`sudo apt-get update`
 
 `sudo apt-get install x2goserver x2goserver-xsession`
 
@@ -108,3 +111,10 @@ configure x2go client connection using hostname and private key path.
 
   
 ### Installing and setting up Unity:
+  
+1. Start session on GCE instance
+2. Follow install instructions on https://unity.com/
+3. Open with `unityhub` command
+
+
+  
