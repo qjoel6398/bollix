@@ -41,7 +41,7 @@ gcloud compute instances create bollix-1 \
 
 `sudo apt-get update`
   
-`sudo apt-get install xubuntu-desktop`
+`sudo apt-get install xubuntu-desktop -y`
 
 `sudo reboot`
 
