@@ -39,6 +39,8 @@ gcloud compute instances create bollix-1 \
 
 #### 4. install desktop env on remote (ubuntu)
 
+`sudo apt-get update`
+  
 `sudo apt-get install xubuntu-desktop`
 
 `sudo reboot`
